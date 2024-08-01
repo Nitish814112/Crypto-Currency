@@ -1,31 +1,27 @@
 {
-  "name": "cryptocurrency",
+  "name": "redux",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "chart": "^0.1.2",
+    "chart.js": "^4.1.1",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-modal": "^3.16.1",
-    "react-redux": "^9.1.2",
+    "react-redux": "^8.0.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
-    "react-tailwind": "^0.0.0",
-    "react-thunk": "^1.0.0",
-    "redux": "^5.0.1",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^3.1.0",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns node_modules/jest/bin/jest.js/",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -47,6 +43,11 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.7"
+    "@testing-library/dom": "^8.19.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "axios-mock-adapter": "^1.22.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-mock-store": "^1.5.4"
   }
 }

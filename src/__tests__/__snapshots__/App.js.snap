@@ -1,0 +1,437 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component snapshot renders correctly and matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="nav"
+  >
+    <img
+      alt=""
+      src="unique_logo.png"
+      style="height: 90px; width: 90px; margin-left: 4%;"
+    />
+  </div>
+  <div
+    class="main"
+  >
+    <div
+      class="left"
+    >
+      <div
+        class="search"
+      >
+        <select
+          class="shadow portfolio-text"
+          style="font-size: 0.8rem; padding-left: 15px; border-radius: 8px;"
+        >
+          <option
+            value="usd"
+          >
+            Usd
+          </option>
+          <option
+            value="inr"
+          >
+            Inr
+          </option>
+          <option
+            value="euro"
+          >
+            Euro
+          </option>
+          <option
+            value="aed"
+          >
+            Aed
+          </option>
+          <option
+            value="yuan"
+          >
+            Yuan
+          </option>
+          <option
+            value="ruble"
+          >
+            Ruble
+          </option>
+          <option
+            value="yen"
+          >
+            Yen
+          </option>
+        </select>
+        <form>
+          <input
+            class="shadow_input"
+            placeholder="🔍Search by coin"
+            style="width: 500px; padding: 15px;"
+            type="search"
+            value=""
+          />
+        </form>
+      </div>
+      <div
+        class="graph"
+      >
+        <div
+          class="w-full"
+        >
+          <div
+            class="flex items-center justify-between gap-4 mb-4 flex-nowrap"
+          >
+            <div
+              class="flex gap-2 flex-nowrap"
+            >
+              <button
+                class="py-1 px-3 border rounded-md bg-gray-200 text-gray-700 portfolio-text"
+              >
+                1D
+              </button>
+              <button
+                class="py-1 px-3 border rounded-md bg-gray-200 text-gray-700 portfolio-text"
+              >
+                1W
+              </button>
+              <button
+                class="py-1 px-3 border rounded-md bg-gray-200 text-gray-700 portfolio-text"
+              >
+                1M
+              </button>
+              <button
+                class="py-1 px-3 border rounded-md bg-gray-200 text-gray-700 portfolio-text"
+              >
+                3M
+              </button>
+              <button
+                class="py-1 px-3 border rounded-md bg-blue-500 text-white portfolio-text"
+              >
+                6M
+              </button>
+              <button
+                class="py-1 px-3 border rounded-md bg-gray-200 text-gray-700 portfolio-text"
+              >
+                1Y
+              </button>
+            </div>
+            <div
+              class="flex gap-2 flex-nowrap"
+            >
+              <div
+                class="select-normal portfolio-text select-graph css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-2-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                  role="log"
+                />
+                <div
+                  class=" css-1wd85kj-control"
+                >
+                  <div
+                    class=" css-1dyz3mf"
+                  >
+                    <div
+                      class=" css-1p3m7a8-multiValue"
+                    >
+                      <div
+                        class=" css-9jq23d"
+                      >
+                        Bitcoin
+                      </div>
+                      <div
+                        aria-label="Remove Bitcoin"
+                        class=" css-v7duua"
+                        role="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="css-tj5bde-Svg"
+                          focusable="false"
+                          height="14"
+                          viewBox="0 0 20 20"
+                          width="14"
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      class=" css-19bb58m"
+                      data-value=""
+                    >
+                      <input
+                        aria-activedescendant=""
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class=""
+                        id="react-select-2-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class=" css-1wy0on6"
+                  >
+                    <div
+                      aria-hidden="true"
+                      class=" css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                        />
+                      </svg>
+                    </div>
+                    <span
+                      class=" css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class=" css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="select-normal portfolio-text select-width css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-3-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                  role="log"
+                />
+                <div
+                  class=" css-19q7pao-control"
+                >
+                  <div
+                    class=" css-hlgwow"
+                  >
+                    <div
+                      class=" css-1dimb5e-singleValue"
+                    >
+                      Line
+                    </div>
+                    <div
+                      class=" css-19bb58m"
+                      data-value=""
+                    >
+                      <input
+                        aria-activedescendant=""
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class=""
+                        id="react-select-3-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class=" css-1wy0on6"
+                  >
+                    <span
+                      class=" css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class=" css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="chart-container h-48 overflow-hidden"
+          >
+            <canvas
+              height="150"
+              role="img"
+              width="300"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="exchange_portfolio"
+      >
+        <div
+          class="portfolio"
+        >
+          <div
+            class="flex flex-col items-center w-full"
+          />
+        </div>
+        <div
+          class="exchange"
+        >
+          <div>
+            <h2
+              class="portfolio-text absolute"
+              style="margin-top: -20px;"
+            >
+              Exchange Coins
+            </h2>
+            <div
+              class="flex flex-col gap-3 ml-4 mt-8"
+            >
+              <div
+                class="flex flex-col"
+              >
+                <span
+                  style="margin-left: 45%;"
+                >
+                  Enter Value
+                </span>
+                <div
+                  class="flex gap-3 mt-2"
+                >
+                  <label
+                    class="portfolio-text"
+                    for="sellCurrency"
+                    style="color: red;"
+                  >
+                    Sell:
+                  </label>
+                  <select
+                    class="portfolio-text"
+                    id="sellCurrency"
+                    style="border: 0.5px solid grey; width: 22%;"
+                  />
+                  <input
+                    class="portfolio-text"
+                    min="0.01"
+                    style="border: 0.5px solid grey; color: red; width: 40%;"
+                    type="number"
+                    value="1"
+                  />
+                </div>
+              </div>
+              <div
+                class="flex gap-3 mt-4"
+              >
+                <label
+                  class="portfolio-text"
+                  for="buyCurrency"
+                  style="color: green;"
+                >
+                  Buy:
+                </label>
+                <select
+                  class="portfolio-text"
+                  id="buyCurrency"
+                  style="border: 0.5px solid grey; width: 22%;"
+                />
+                <input
+                  class="portfolio-text"
+                  readonly=""
+                  style="border: 0.5px solid grey; color: green; width: 40%;"
+                  type="number"
+                  value="0"
+                />
+              </div>
+              <button
+                class="exchange-button"
+                style="margin-left: 30%; width: 140px;"
+              >
+                Exchange
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="right"
+    >
+      <div
+        class="market-cap-container"
+        style="height: 670px;"
+      >
+        <h3
+          class="market-cap-title portfolio-text"
+        >
+          Cryptocurrency by 
+          <p>
+            market cap
+          </p>
+        </h3>
+        <ul
+          class="market-cap-list"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="footer"
+  >
+    <h1>
+      Made with ❤️ by Nitish ©️  2024
+    </h1>
+  </div>
+</DocumentFragment>
+`;

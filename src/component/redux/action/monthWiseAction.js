@@ -61,3 +61,5 @@ export const monthWiseActions = () => async (dispatch) => {
     });
   }
 };
+
+export default monthWiseActions

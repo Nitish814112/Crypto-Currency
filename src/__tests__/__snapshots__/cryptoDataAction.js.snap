@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cryptoDataAction should dispatch GET_CRYPTODATA_FAILURE when fetching data fails 1`] = `
+Array [
+  Object {
+    "type": "GET_CRYPTODATA_REQUEST",
+  },
+  Object {
+    "payload": "Network Error",
+    "type": "GET_CRYPTODATA_FAILURE",
+  },
+]
+`;
+
+exports[`cryptoDataAction should dispatch GET_CRYPTODATA_SUCCESS when fetching data is successful 1`] = `
+Array [
+  Object {
+    "type": "GET_CRYPTODATA_REQUEST",
+  },
+  Object {
+    "payload": Array [
+      Object {
+        "current_price": 30000,
+        "id": "bitcoin",
+        "name": "Bitcoin",
+      },
+      Object {
+        "current_price": 2000,
+        "id": "ethereum",
+        "name": "Ethereum",
+      },
+    ],
+    "type": "GET_CRYPTODATA_SUCCESS",
+  },
+]
+`;

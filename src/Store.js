@@ -1,8 +1,9 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
-import { thunk } from "redux-thunk";
+
 import { composeWithDevTools } from "redux-devtools-extension";
 import {cryptoDataReducer} from './component/redux/reducer/cryptoDataReducer'
 import monthWiseReducer from './component/redux/reducer/monthWiseReducer'
+import thunk from "redux-thunk/es";
 
 const rootReducer = combineReducers({
   GET_CRYPTO:cryptoDataReducer,
