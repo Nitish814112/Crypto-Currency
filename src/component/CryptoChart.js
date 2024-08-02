@@ -52,6 +52,7 @@ const CryptoChart = ({ data: coins2 }) => {
   const [selectedChartType, setSelectedChartType] = useState(chartTypes[0]);
   const [chartData, setChartData] = useState(null);
   const [selectedTimeRange, setSelectedTimeRange] = useState(timeRanges[4].value); // Default to 6M
+  const [showTimeRanges, setShowTimeRanges] = useState(true);
 
   useEffect(() => {
     if (coins2 && selectedCurrencies.length > 0) {
@@ -181,42 +182,53 @@ const CryptoChart = ({ data: coins2 }) => {
     <div className="w-full">
       <div className="flex items-center justify-between gap-4 mb-4 flex-nowrap">
         <div className="flex gap-2 flex-nowrap">
-          {timeRanges.map((range) => (
+          {!showTimeRanges && (
+            <button
+              className="py-1 px-3 border rounded-md bg-gray-200 text-gray-700 portfolio-text currency-btn lg:hidden"
+              onClick={() => setShowTimeRanges(!showTimeRanges)}
+              style={{ marginRight: '20px' }} // Add margin to the hamburger menu
+            >
+              ☰
+            </button>
+          )}
+          {showTimeRanges && timeRanges.map((range) => (
             <button
               key={range.value}
               onClick={() => handleTimeRangeChange(range.value)}
-              className={`py-1 px-3 border rounded-md ${selectedTimeRange === range.value ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'} portfolio-text`}
+              className={`py-1 px-3 border rounded-md ${selectedTimeRange === range.value ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'} portfolio-text currency-btn `}
             >
               {range.label}
             </button>
           ))}
         </div>
-        <div className="flex gap-2 flex-nowrap">
-          <Select
-            isMulti
-            options={currencyOptions}
-            onChange={handleCurrencyChange}
-            value={selectedCurrencies}
-            className="select-normal portfolio-text select-graph"
-            styles={{
-              control: (base, state) => ({
-                ...base,
-                width: state.hasValue && state.selectProps.value.length > 1 ? 'auto' : '12rem', // Adjust the width based on the number of selected values
-              }),
-            }}
-          />
-          <Select
-            options={chartTypes}
-            onChange={handleChartTypeChange}
-            value={selectedChartType}
-            className="select-normal portfolio-text select-width"
-            styles={{
-              control: (base) => ({
-                ...base,
-                width: '5rem', // Default width
-              }),
-            }}
-          />
+        <div className="flex flex-col items-center w-full">
+          <div className="flex gap-2 flex-nowrap select-curr justify-center">
+            <Select
+              isMulti
+              options={currencyOptions}
+              onChange={handleCurrencyChange}
+              value={selectedCurrencies}
+              className="select-normal portfolio-text select-graph"
+              styles={{
+                control: (base, state) => ({
+                  ...base,
+                  width: state.hasValue && state.selectProps.value.length > 1 ? 'auto' : '12rem', // Adjust the width based on the number of selected values
+                }),
+              }}
+            />
+            <Select
+              options={chartTypes}
+              onChange={handleChartTypeChange}
+              value={selectedChartType}
+              className="select-normal portfolio-text select-width"
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  width: '5rem', // Default width
+                }),
+              }}
+            />
+          </div>
         </div>
       </div>
       <div className="chart-container h-48 overflow-hidden">{chartData && renderChart()}</div>

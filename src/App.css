@@ -348,6 +348,72 @@ padding: 0.8%;
     .footer{
       width:1180px;
     }
+  }
+
+    @media (max-width:641px){
+    
+      .main{
+        width: 641px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      .graph{
+       width: 150%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+      }
+      .portfolio{
+        width: 641px;
+      }
+      .exchange{
+        width: 641px ;
+        margin-top: 10px;
+      }
+      .right{
+        width: 641px;
+      }
+      .market-cap-container{
+        width: 641px;
+        margin-top: 10px;
+      }
+      /* .currency-btn{
+      display: none;
+      
+      } */
+      .active{
+
+      }
+      .select-curr{
+        position: absolute;
+        /* max-width: 100px; */
+         margin-left: -650px;
+         top:420px;
+         /* z-index: 999; */
+
+      }
+      .shadow{
+        position: relative;
+        width: 50px;
+      }
+      .shadow_input{
+        margin-left: 30px;
+      }
+
+      .exchange_portfolio{
+        width: 641px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      .nav{
+        width: 100%;
+      }
+      .footer{
+        width:100%;
+      }
     
    
   }

@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     dispatch(cryptoDataAction());
-    dispatch(monthWiseActions());
+    // dispatch(monthWiseActions());
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ function App() {
   const handleRetry = () => {
     setOverallError(null);
     dispatch(cryptoDataAction());
-    dispatch(monthWiseActions());
+    // dispatch(monthWiseActions());
   };
 
   const handleSearch = (e) => {
@@ -90,7 +90,7 @@ function App() {
             <div className="left">
               <div className="search">
                 <select
-                  className="shadow portfolio-text"
+                  className="portfolio-text"
                   style={{fontSize:"0.8rem",paddingLeft:"15px", borderRadius: '8px'}}
                   value={selectedCurrency}
                   onChange={(e) => setSelectedCurrency(e.target.value)}
