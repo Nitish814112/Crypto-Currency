@@ -37,20 +37,25 @@ export const monthWiseActions = () => async (dispatch) => {
     const cryptoData = {};
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    for (const id of ids.split(',')) {
+    const fetchAllData = async (id) => {
       const monthlyData = {};
-      for (let month = 0; month < 12; month++) {
-        try {
-          const data = await fetchMonthlyData(id, currentYear, month);
-          const currentPrice = data.market_data ? data.market_data.current_price.usd : 0;
-          monthlyData[months[month]] = currentPrice;
-        } catch (error) {
-          console.error(`Error fetching data for ${id} for ${months[month]}:`, error.message);
-          throw error; // Ensure to throw the error so that it can be caught in the outer try-catch block
-        }
-      }
+      const requests = months.map((_, month) => fetchMonthlyData(id, currentYear, month));
+      const results = await Promise.all(requests);
+
+      results.forEach((data, month) => {
+        const currentPrice = data.market_data ? data.market_data.current_price.usd : 0;
+        monthlyData[months[month]] = currentPrice;
+      });
+
+      return monthlyData;
+    };
+
+    const allRequests = ids.split(',').map(async (id) => {
+      const monthlyData = await fetchAllData(id);
       cryptoData[id] = monthlyData;
-    }
+    });
+
+    await Promise.all(allRequests);
 
     dispatch({ type: GET_MONTH_SUCCESS, payload: cryptoData });
   } catch (error) {
@@ -62,4 +67,4 @@ export const monthWiseActions = () => async (dispatch) => {
   }
 };
 
-export default monthWiseActions
+export default monthWiseActions;

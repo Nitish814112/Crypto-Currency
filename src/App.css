@@ -383,17 +383,7 @@ padding: 0.8%;
       display: none;
       
       } */
-      .active{
-
-      }
-      .select-curr{
-        position: absolute;
-        /* max-width: 100px; */
-         margin-left: -650px;
-         top:420px;
-         /* z-index: 999; */
-
-      }
+  
       .shadow{
         position: relative;
         width: 50px;
@@ -409,10 +399,15 @@ padding: 0.8%;
         flex-wrap: wrap;
       }
       .nav{
-        width: 100%;
+        width:641px;
+        border: none;
+        box-shadow: none;
       }
       .footer{
-        width:100%;
+        width:641px;
+        border: none;
+        box-shadow: none;
+        margin-top: 20px;
       }
     
    
