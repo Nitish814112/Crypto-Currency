@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     dispatch(cryptoDataAction());
-    // dispatch(monthWiseActions());
+    dispatch(monthWiseActions());
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ function App() {
   const handleRetry = () => {
     setOverallError(null);
     dispatch(cryptoDataAction());
-    // dispatch(monthWiseActions());
+    dispatch(monthWiseActions());
   };
 
   const handleSearch = (e) => {
