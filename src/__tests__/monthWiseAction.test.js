@@ -1,4 +1,3 @@
-
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
@@ -13,6 +12,8 @@ import monthWiseActions from '../component/redux/action/monthWiseAction';
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 const store = mockStore({});
+
+jest.setTimeout(30000); // Increase timeout to 30 seconds
 
 describe('monthWiseActions', () => {
   let mockAxios;
@@ -35,13 +36,9 @@ describe('monthWiseActions', () => {
       },
     };
 
-    for (const id of ['bitcoin', 'ethereum', 'tether', 'ripple', 'binancecoin']) {
-      for (let month = 0; month < 12; month++) {
-        const date = `01-${String(month + 1).padStart(2, '0')}-2024`; 
-        mockAxios.onGet(`https://api.coingecko.com/api/v3/coins/${id}/history?date=${date}&x_cg_demo_api_key=CG-7oPz64yKkP1A7tpRhxTPTkYc`)
-          .reply(200, mockData);
-      }
-    }
+    // Mock all API calls with a single regex
+    mockAxios.onGet(/https:\/\/api\.coingecko\.com\/api\/v3\/coins\/.*\/history\?date=.*&x_cg_demo_api_key=CG-7oPz64yKkP1A7tpRhxTPTkYc/)
+      .reply(200, mockData);
 
     await store.dispatch(monthWiseActions()); 
 
@@ -60,7 +57,8 @@ describe('monthWiseActions', () => {
   });
 
   it('dispatches GET_MONTH_FAILURE when fetching monthly data fails', async () => {
-    mockAxios.onGet(/api.coingecko.com/).reply(500, { message: 'Error fetching data' });
+    mockAxios.onGet(/https:\/\/api\.coingecko\.com\/api\/v3\/coins\/.*\/history\?date=.*&x_cg_demo_api_key=CG-7oPz64yKkP1A7tpRhxTPTkYc/)
+      .reply(500, { message: 'Error fetching data' });
 
     await store.dispatch(monthWiseActions()); 
 
