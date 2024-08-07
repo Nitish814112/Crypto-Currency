@@ -172,10 +172,10 @@ function App() {
                 <div className="relative inline-block text-left selecting" ref={dropdownRef}>
                   <div
                   style={{height:"40px"}}
-                    className="border border-gray-300 rounded-md p-2 cursor-pointer "
+                    className="border border-gray-300 rounded-lg p-2 cursor-pointer setText "
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
-                    Select Currencies
+                    Currency
                   </div>
                   {dropdownOpen && (
                     <div className=" absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 flex flex-col">

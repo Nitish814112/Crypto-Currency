@@ -304,7 +304,7 @@ background-color:transparent;
 }
 .selecting{
   position: absolute;
-  /* width: fit-content; */
+  font: 0.6rem;
   margin-left: 400px;
   background: whitesmoke;
   height: 10px;
@@ -436,9 +436,10 @@ background-color:transparent;
 
       }
       
-      /* .selecting{
-        margin-left: 325px;
-      } */
+      .selecting{
+        font: 10px;
+        width: auto;
+      }
       .search{
         width: 641px;
       }
