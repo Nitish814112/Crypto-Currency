@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cryptoDataAction } from "./component/redux/action/cryptoDataAction";
 import "./App.css";
@@ -39,6 +39,7 @@ function App() {
     currencyOptions[0],
   ]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     dispatch(
@@ -102,6 +103,19 @@ function App() {
     setSearchResult(null);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
     <>
       {overallLoading ? (
@@ -128,13 +142,13 @@ function App() {
                     fontSize: "0.8rem",
                     paddingLeft: "15px",
                     borderRadius: "8px",
-                    
                   }}
                   value={selectedCurrency}
                   onChange={(e) => setSelectedCurrency(e.target.value)}
                 >
                   {variousCountriesCurrency.map((currency) => (
                     <option
+                    className="portfolio-text"
                       style={{ fontSize: "0.8" }}
                       key={currency}
                       value={currency}
@@ -155,19 +169,20 @@ function App() {
                 </form>
               </div>
               <div className="graph">
-                <div className="relative">
+                <div className="relative inline-block text-left selecting" ref={dropdownRef}>
                   <div
-                    className="border border-gray-300 rounded-lg p-2 cursor-pointer selecting"
+                  style={{height:"40px"}}
+                    className="border border-gray-300 rounded-md p-2 cursor-pointer "
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
                     Select Currencies
                   </div>
                   {dropdownOpen && (
-                    <div >
+                    <div className=" absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 flex flex-col">
                       {currencyOptions.map((currency) => (
                         <label
                           key={currency.value}
-                          className="flex items-center p-2 hover:bg-transparent hovering"
+                          className="flex items-center p-2 "
                         >
                           <input
                             type="checkbox"
@@ -176,9 +191,9 @@ function App() {
                               (selected) => selected.value === currency.value
                             )}
                             onChange={() => handleCurrencyChange(currency)}
-                            className="mr-2 indexing"
+                            className="mr-2"
                           />
-                          {currency.label}
+                          <span>{currency.label}</span>
                         </label>
                       ))}
                     </div>

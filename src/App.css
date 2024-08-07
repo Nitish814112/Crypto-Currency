@@ -304,12 +304,13 @@ background-color:transparent;
 }
 .selecting{
   position: absolute;
-  width: fit-content;
+  /* width: fit-content; */
   margin-left: 400px;
-  height: 40px;
+  background: whitesmoke;
+  height: 10px;
   font-size: 0.8rem;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 2px;
   border: none;
   text-align: center;
   /* background-color: whitesmoke; */
@@ -317,9 +318,7 @@ background-color:transparent;
   
   
 }
-.selecting:hover{
-  border: 1px solid #ddd;
-}
+
 .hovering{
   
   width: fit-content;
@@ -414,6 +413,13 @@ background-color:transparent;
     }
   }
 
+  @media (max-width:1370px){
+    .select-width{
+      margin-left: 250px;  
+        
+    }
+  }
+
     @media (max-width:641px){
     
       .main{
@@ -429,6 +435,10 @@ background-color:transparent;
         flex-wrap: wrap;
 
       }
+      
+      /* .selecting{
+        margin-left: 325px;
+      } */
       .search{
         width: 641px;
       }
