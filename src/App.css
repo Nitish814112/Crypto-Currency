@@ -305,12 +305,13 @@ background-color:transparent;
 .selecting{
   position: absolute;
   width: fit-content;
-  margin-left: 450px;
+  margin-left: 400px;
   height: 40px;
   font-size: 0.8rem;
   font-weight: bold;
   border-radius: 5px;
   border: none;
+  text-align: center;
   /* background-color: whitesmoke; */
  
   
@@ -325,7 +326,7 @@ background-color:transparent;
   margin-left: 450px;
   z-index: 999;
   /* background-color: white; */
-  margin-top: 10px
+  /* margin-top: 10px */
 }
 .hovering:hover{
   border: 1px solid #ddd;
@@ -382,6 +383,9 @@ background-color:transparent;
   background: transparent;
       
   }
+  .changeText:active{
+    border: 1px solid black;
+  }
 
   .exchange{
 
@@ -425,6 +429,9 @@ background-color:transparent;
         flex-wrap: wrap;
 
       }
+      .search{
+        width: 641px;
+      }
       .portfolio{
         width: 641px;
       }
@@ -450,6 +457,7 @@ background-color:transparent;
       }
       .shadow_input{
         margin-left: 30px;
+        width: 100%;
       }
 
       .exchange_portfolio{

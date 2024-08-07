@@ -123,11 +123,12 @@ function App() {
             <div className="left">
               <div className="search">
                 <select
-                  className="portfolio-text"
+                  className="portfolio-text changeText"
                   style={{
                     fontSize: "0.8rem",
                     paddingLeft: "15px",
                     borderRadius: "8px",
+                    
                   }}
                   value={selectedCurrency}
                   onChange={(e) => setSelectedCurrency(e.target.value)}

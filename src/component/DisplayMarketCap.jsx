@@ -21,7 +21,7 @@ const DisplayMarketCap = ({ coins, selectedCurrency }) => {
 
   return (
     <div className="market-cap-container" style={{height:"670px"}}>
-      <h3 className="market-cap-title portfolio-text">Cryptocurrency by <p>market cap</p></h3>
+      <h3  style={{color:'black'}} className="market-cap-title portfolio-text">Cryptocurrency by <p>market cap</p></h3>
       <ul className="market-cap-list">
         {coins.map((coin) => (
           <li key={coin.id} className="market-cap-item">

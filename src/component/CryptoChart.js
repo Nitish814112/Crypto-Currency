@@ -247,7 +247,7 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
               onClick={() => handleTimeRangeChange(range.value)}
               className={`py-1 px-3 border rounded-md ${
                 selectedTimeRange === range.value
-                  ? "bg-transparent text-white"
+                  ? "bg-transparent text-yellow-700"
                   : "bg-transparent text-gray-700"
               } portfolio-text currency-btn`}
             >
@@ -270,7 +270,7 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
                   ...base,
                   width: "5rem",
                 }),
-                backgroundColor:'transparent'
+                
               }}
             />
           </div>
