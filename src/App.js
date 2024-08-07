@@ -10,6 +10,14 @@ import currencySymbols from "./component/utility/currencySymbols";
 import Nav from "./component/Nav";
 import { monthWiseActions } from "./component/redux/action/monthWiseAction";
 
+const currencyOptions = [
+  { value: "bitcoin", label: "Bitcoin" },
+  { value: "ethereum", label: "Ethereum" },
+  { value: "tether", label: "Tether" },
+  { value: "ripple", label: "Ripple" },
+  { value: "binancecoin", label: "Binance Coin" },
+];
+
 function App() {
   const dispatch = useDispatch();
   const GET_CRYPTO = useSelector((state) => state.GET_CRYPTO);
@@ -21,18 +29,23 @@ function App() {
     data,
     error: errorMonthWise,
   } = GET_MONTH_WISE;
-  // console.log('errorMonthWise :',errorMonthWise);
 
   const [overallLoading, setOverallLoading] = useState(true);
   const [overallError, setOverallError] = useState(null);
   const [selectedCurrency, setSelectedCurrency] = useState("usd");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState(null);
+  const [selectedCurrencies, setSelectedCurrencies] = useState([
+    currencyOptions[0],
+  ]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
+    dispatch(
+      monthWiseActions(selectedCurrencies.map((currency) => currency.value))
+    );
     dispatch(cryptoDataAction());
-    dispatch(monthWiseActions());
-  }, [dispatch]);
+  }, [dispatch, selectedCurrencies]);
 
   useEffect(() => {
     if (!loadingCrypto && !loadingMonthWise) {
@@ -50,7 +63,21 @@ function App() {
   const handleRetry = () => {
     setOverallError(null);
     dispatch(cryptoDataAction());
-    dispatch(monthWiseActions());
+    dispatch(
+      monthWiseActions(selectedCurrencies.map((currency) => currency.value))
+    );
+  };
+
+  const handleCurrencyChange = (currency) => {
+    setSelectedCurrencies((prevSelected) => {
+      if (prevSelected.some((selected) => selected.value === currency.value)) {
+        return prevSelected.filter(
+          (selected) => selected.value !== currency.value
+        ); // Remove if already selected
+      } else {
+        return [...prevSelected, currency]; // Add if not selected
+      }
+    });
   };
 
   const handleSearch = (e) => {
@@ -61,7 +88,15 @@ function App() {
     setSearchResult(result ? result : "No coins found");
   };
 
-  const variousCountriesCurrency = ["usd", "inr", "euro", "aed", "yuan", "ruble", "yen"];
+  const variousCountriesCurrency = [
+    "usd",
+    "inr",
+    "euro",
+    "aed",
+    "yuan",
+    "ruble",
+    "yen",
+  ];
 
   const closeModal = () => {
     setSearchResult(null);
@@ -71,7 +106,7 @@ function App() {
     <>
       {overallLoading ? (
         <h2 className="spin">
-        Loading Your Dashboard... <span id="spinner"></span>
+          Loading Your Dashboard... <span id="spinner"></span>
         </h2>
       ) : overallError ? (
         <div className="error-message">
@@ -80,31 +115,37 @@ function App() {
         </div>
       ) : (
         <>
-          
-            <div className="nav">
-              <Nav />
-            </div>
-          
+          <div className="nav">
+            <Nav />
+          </div>
 
           <div className="main">
             <div className="left">
               <div className="search">
                 <select
                   className="portfolio-text"
-                  style={{fontSize:"0.8rem",paddingLeft:"15px", borderRadius: '8px'}}
+                  style={{
+                    fontSize: "0.8rem",
+                    paddingLeft: "15px",
+                    borderRadius: "8px",
+                  }}
                   value={selectedCurrency}
                   onChange={(e) => setSelectedCurrency(e.target.value)}
                 >
                   {variousCountriesCurrency.map((currency) => (
-                    <option style={{fontSize:"0.8"}} key={currency} value={currency}>
-                      {currency[0].toUpperCase()+currency.slice(1)}
+                    <option
+                      style={{ fontSize: "0.8" }}
+                      key={currency}
+                      value={currency}
+                    >
+                      {currency[0].toUpperCase() + currency.slice(1)}
                     </option>
                   ))}
                 </select>
                 <form onSubmit={handleSearch}>
                   <input
                     className="shadow_input"
-                    style={{width:"500px",padding:"15px"}}
+                    style={{ width: "500px", padding: "15px" }}
                     type="search"
                     placeholder="🔍Search by coin"
                     value={searchTerm}
@@ -113,7 +154,41 @@ function App() {
                 </form>
               </div>
               <div className="graph">
-                <CryptoChart data={data} />
+                <div className="relative">
+                  <div
+                    className="border border-gray-300 rounded-lg p-2 cursor-pointer selecting"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                  >
+                    Select Currencies
+                  </div>
+                  {dropdownOpen && (
+                    <div >
+                      {currencyOptions.map((currency) => (
+                        <label
+                          key={currency.value}
+                          className="flex items-center p-2 hover:bg-transparent hovering"
+                        >
+                          <input
+                            type="checkbox"
+                            value={currency.value}
+                            checked={selectedCurrencies.some(
+                              (selected) => selected.value === currency.value
+                            )}
+                            onChange={() => handleCurrencyChange(currency)}
+                            className="mr-2 indexing"
+                          />
+                          {currency.label}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <CryptoChart
+                  data={data}
+                  selectedCurrencies={selectedCurrencies.map(
+                    (currency) => currency.value
+                  )}
+                />
               </div>
               <div className="exchange_portfolio">
                 <div className="portfolio">
@@ -125,11 +200,15 @@ function App() {
               </div>
             </div>
             <div className="right">
-              <DisplayMarketCap coins={coins} selectedCurrency={selectedCurrency} />
+              <DisplayMarketCap
+                coins={coins}
+                selectedCurrency={selectedCurrency}
+              />
             </div>
-            
           </div>
-          <div className="footer"><h1>Made with ❤️ by Nitish ©️  2024</h1></div>
+          <div className="footer">
+            <h1>Made with ❤️ by Nitish ©️ 2024</h1>
+          </div>
           {searchResult && (
             <div
               className="modal-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
@@ -157,7 +236,6 @@ function App() {
                       />
                       <h3 className="portfolio-text">{searchResult.name}</h3>
                       <p className="portfolio-text">
-                      
                         Current Price: {currencySymbols[selectedCurrency]}
                         {searchResult.current_price.toLocaleString()}
                       </p>

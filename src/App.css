@@ -2,12 +2,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color:transparent;
+  color:black;
+ 
 } 
 
 body {
-  height: 100vh;
+  height: auto;
     width: 100vw;
   font-family: Arial, sans-serif;
+  background-color: #FFE53B;
+  background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
+  
+  
 }
 .header-container {
   border-bottom: 2px solid #ccc;
@@ -54,12 +61,13 @@ body {
     width: 85%;/* Adjust the height as needed */
     overflow: auto;
     position: relative;
-    
-  overflow-y: scroll;
-    border: 1px solid #ddd;
+    color: #ddd;
+  /* overflow-y: scroll; */
+    border: 1px solid transparent;
     border-radius: 8px;
     padding: 10px;
-    background-color: #fff; /* Ensure it has a background color */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    background-color:transparent; /* Ensure it has a background color */
   }
   
   .market-cap-title {
@@ -67,9 +75,10 @@ body {
 
     margin-left: -9vw;
     margin-bottom: 10px;
-    position: sticky;
+    /* position: sticky; */
   top: -10px;
-  background-color: white; /* Ensure the background color matches the container */
+  color: #ddd;
+  background-color:transparent; /* Ensure the background color matches the container */
   z-index: 1;
   padding: 10px 0; /* Add some padding for better appearance */
   text-align: center; /* Center align the text */
@@ -262,8 +271,9 @@ body{
   height: 3%;
   display: flex;
   justify-content: center;
-  border-top:1px solid silver;
+  border-top:1px solid transparent;
   border-radius: 8px;
+  
   order: 3;
   margin-top: 1%;
   padding-top: 0.8%;
@@ -276,22 +286,54 @@ body{
 width: 100%;
 height: 5%;
 border-radius: 8px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 display: flex;
 gap: 2%;
 padding: 0.8%;
+background-color:transparent;
+
 
 }
 .search>.shadow{
   width: 10%;
   height: 2rem;
+  border: 1px solid #ddd;
+  background-color:transparent;
 
   
+}
+.selecting{
+  position: absolute;
+  width: fit-content;
+  margin-left: 450px;
+  height: 40px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: whitesmoke;
+ 
+  
+  
+}
+.hovering{
+  
+  width: fit-content;
+  margin-left: 450px;
+  z-index: 999;
+  /* background-color: white; */
+  margin-top: 10px
+}
+.hovering:hover{
+  border: 1px solid black;
 }
 .shadow_input{
   /* color: aqua; */
   width: 90%;
   height: 2rem;
   border-radius: 8px;
+  border: 1px solid transparent;
+  color: #555;
   /* background-color: red; */
 }
 
@@ -299,8 +341,10 @@ padding: 0.8%;
   width: 100%;
   height: 60%;
   padding: 1%;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  color: black;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 8px; 
   /* background-color: cadetblue; */
 }
@@ -313,16 +357,26 @@ padding: 0.8%;
   padding-top: 2%;
   justify-content: center;
   align-items: center;
+  background: transparent;
 
   /* background-color: brown; */
   }
+  .currency-btn{
+    border: 1px solid transparent;
+    
+    } 
+
+    .currency-btn:hover{
+      border: 1px solid whitesmoke;
+    }
 
   .portfolio{
       width:50%;
       height:100%;
-      background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid transparent;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
+  background: transparent;
       
   }
 
@@ -332,8 +386,11 @@ padding: 0.8%;
       height: 270px;
       padding-left: 4%;
       background: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       border-radius: 8px; 
+      border: 1px solid transparent;
+      background: transparent;
+      color: #ddd;
       
   }
 
@@ -380,7 +437,7 @@ padding: 0.8%;
         margin-top: 10px;
       }
       /* .currency-btn{
-      display: none;
+      border: 1px solid transparent;
       
       } */
   

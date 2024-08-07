@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line, Bar, Radar } from "react-chartjs-2";
+import Select from "react-select";
 import {
   Chart as ChartJS,
   LineElement,
@@ -11,7 +12,6 @@ import {
   CategoryScale,
   ArcElement,
 } from "chart.js";
-import Select from "react-select";
 
 ChartJS.register(
   LineElement,
@@ -23,14 +23,6 @@ ChartJS.register(
   CategoryScale,
   ArcElement
 );
-
-const currencyOptions = [
-  { value: "bitcoin", label: "Bitcoin" },
-  { value: "ethereum", label: "Ethereum" },
-  { value: "tether", label: "Tether" },
-  { value: "ripple", label: "Ripple" },
-  { value: "binancecoin", label: "Binance Coin" },
-];
 
 const chartTypes = [
   { value: "line", label: "Line" },
@@ -47,35 +39,38 @@ const timeRanges = [
   { value: "1Y", label: "1Y" },
 ];
 
-const CryptoChart = ({ data: coins2 }) => {
-  const [selectedCurrencies, setSelectedCurrencies] = useState([currencyOptions[0]]);
+const CryptoChart = ({ data, selectedCurrencies }) => {
   const [selectedChartType, setSelectedChartType] = useState(chartTypes[0]);
   const [chartData, setChartData] = useState(null);
-  const [selectedTimeRange, setSelectedTimeRange] = useState(timeRanges[4].value); // Default to 6M
-  const [showTimeRanges, setShowTimeRanges] = useState(true);
+  const [selectedTimeRange, setSelectedTimeRange] = useState(
+    timeRanges[4].value
+  ); // Default to 6M
 
   useEffect(() => {
-    if (coins2 && selectedCurrencies.length > 0) {
-      const datasets = selectedCurrencies.map((currency) => {
-        const data = coins2[currency.value] || {};
+    if (data && selectedCurrencies.length > 0) {
+      const datasets = selectedCurrencies.map((currency, index) => {
+        const currencyData = data[currency] || {};
+
         return {
-          label: currency.label,
-          data: generateData(selectedTimeRange, data),
+          label: currency, // Use currency.value for the label
+          data: generateData(selectedTimeRange, currencyData),
           borderColor: getRandomColor(),
-          backgroundColor: selectedChartType.value === "bar" ? getRandomColor() : "rgba(75,192,192,0.2)",
-          fill: selectedChartType.value !== 'bar', // Only fill for non-bar charts
+          backgroundColor:
+            selectedChartType.value === "bar"
+              ? getRandomColor()
+              : "rgba(75,192,192,0.2)",
+          fill: selectedChartType.value !== "bar", // Only fill for non-bar charts
+          yAxisID: `y-axis-${index}`, // Assign a unique ID for the y-axis
         };
       });
+
+      // Create chart data
       setChartData({
         labels: generateLabels(selectedTimeRange),
         datasets,
       });
     }
-  }, [coins2, selectedCurrencies, selectedTimeRange, selectedChartType]);
-
-  const handleCurrencyChange = (selectedOptions) => {
-    setSelectedCurrencies(selectedOptions || []);
-  };
+  }, [data, selectedCurrencies, selectedTimeRange, selectedChartType]);
 
   const handleChartTypeChange = (selectedOption) => {
     setSelectedChartType(selectedOption || chartTypes[0]);
@@ -107,29 +102,49 @@ const CryptoChart = ({ data: coins2 }) => {
       case "6M":
         return ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
       case "1Y":
-        return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
       default:
         return [];
     }
   };
 
   const generateData = (timeRange, data) => {
-    switch (timeRange) {
-      case "1D":
-        return ["00:00", "06:00", "12:00", "18:00"].map((_, i) => data[`hour${i * 6}`] || 0);
-      case "1W":
-        return Array.from({ length: 7 }, (_, i) => data[`day${i + 1}`] || 0);
-      case "1M":
-        return Array.from({ length: 31 }, (_, i) => data[`day${i + 1}`] || 0);
-      case "3M":
-        return ["Jan", "Feb", "Mar"].map((month) => data[month] || 0);
-      case "6M":
-        return ["Jan", "Feb", "Mar", "Apr", "May", "Jun"].map((month) => data[month] || 0);
-      case "1Y":
-        return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((month) => data[month] || 0);
-      default:
-        return [];
-    }
+    const keys = {
+      "1D": ["hour0", "hour6", "hour12", "hour18"],
+      "1W": ["day1", "day2", "day3", "day4", "day5", "day6", "day7"],
+      "1M": Array.from({ length: 31 }, (_, i) => `day${i + 1}`),
+      "3M": ["Jan", "Feb", "Mar"],
+      "6M": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      "1Y": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+    };
+    const selectedKeys = keys[timeRange];
+    return selectedKeys.map((key) => (data[key] !== undefined ? data[key] : 0));
   };
 
   const options = {
@@ -138,11 +153,16 @@ const CryptoChart = ({ data: coins2 }) => {
     plugins: {
       legend: {
         display: true,
-        position: "right",
+        position: "bottom",
         labels: {
           usePointStyle: true,
           padding: 20,
           boxWidth: 20,
+          font: {
+            weight: "bold",
+            color: "black",
+          },
+          color: "black", // This property ensures the color is applied to the legend text
         },
       },
       tooltip: {
@@ -155,14 +175,53 @@ const CryptoChart = ({ data: coins2 }) => {
       },
     },
     scales: {
-      y: {
-        beginAtZero: true,
+      x: {
         ticks: {
-          callback: function (value) {
-            return `${value / 1000}k`;
+          color: "black", // Color for x-axis text
+          font: {
+            weight: "bold", // Make x-axis text bold
+          },
+        },
+        title: {
+          display: true,
+          text: "Time", // X-axis label
+          color: "black",
+          font: {
+            weight: "bold",
+            size: 14,
           },
         },
       },
+      y: selectedCurrencies.map((_, index) => ({
+        id: `y-axis-${index}`,
+        position: index === 0 ? "left" : "right", // Position the first y-axis on the left, others on the right
+        ticks: {
+          callback: function (value) {
+            return `${value / 1000}k`; // Format the ticks
+          },
+          color: "black", // Color for y-axis text
+          font: {
+            weight: "bold", // Make y-axis text bold
+          },
+        },
+        afterBuildTicks: (scale) => {
+          scale.ticks.forEach((tick) => {
+            tick.color = "black";
+            tick.font = {
+              weight: "bold",
+            };
+          });
+        },
+        title: {
+          display: true,
+          text: `Currency ${index + 1}`, // Y-axis label
+          color: "black",
+          font: {
+            weight: "bold",
+            size: 14,
+          },
+        },
+      })),
     },
   };
 
@@ -182,40 +241,25 @@ const CryptoChart = ({ data: coins2 }) => {
     <div className="w-full">
       <div className="flex items-center justify-between gap-4 mb-4 flex-nowrap">
         <div className="flex gap-2 flex-nowrap">
-          {!showTimeRanges && (
-            <button
-              className="py-1 px-3 border rounded-md bg-gray-200 text-gray-700 portfolio-text currency-btn lg:hidden"
-              onClick={() => setShowTimeRanges(!showTimeRanges)}
-              style={{ marginRight: '20px' }} // Add margin to the hamburger menu
-            >
-              ☰
-            </button>
-          )}
-          {showTimeRanges && timeRanges.map((range) => (
+          {timeRanges.map((range) => (
             <button
               key={range.value}
               onClick={() => handleTimeRangeChange(range.value)}
-              className={`py-1 px-3 border rounded-md ${selectedTimeRange === range.value ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'} portfolio-text currency-btn `}
+              className={`py-1 px-3 border rounded-md ${
+                selectedTimeRange === range.value
+                  ? "bg-transparent text-white"
+                  : "bg-transparent text-gray-700"
+              } portfolio-text currency-btn`}
             >
               {range.label}
             </button>
           ))}
         </div>
-        <div className="flex flex-col items-center w-full">
+        <div
+          style={{ color: "black" }}
+          className="flex flex-col items-center w-full"
+        >
           <div className="flex gap-2 flex-nowrap select-curr justify-center">
-            <Select
-              isMulti
-              options={currencyOptions}
-              onChange={handleCurrencyChange}
-              value={selectedCurrencies}
-              className="select-normal portfolio-text select-graph"
-              styles={{
-                control: (base, state) => ({
-                  ...base,
-                  width: state.hasValue && state.selectProps.value.length > 1 ? 'auto' : '12rem', // Adjust the width based on the number of selected values
-                }),
-              }}
-            />
             <Select
               options={chartTypes}
               onChange={handleChartTypeChange}
@@ -224,14 +268,20 @@ const CryptoChart = ({ data: coins2 }) => {
               styles={{
                 control: (base) => ({
                   ...base,
-                  width: '5rem', // Default width
+                  width: "5rem",
                 }),
+                backgroundColor:'transparent'
               }}
             />
           </div>
         </div>
       </div>
-      <div className="chart-container h-48 overflow-hidden">{chartData && renderChart()}</div>
+      <div
+        style={{ color: "black" }}
+        className="chart-container h-48 overflow-hidden"
+      >
+        {chartData && renderChart()}
+      </div>
     </div>
   );
 };

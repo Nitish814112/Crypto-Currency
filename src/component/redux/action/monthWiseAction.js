@@ -6,7 +6,7 @@ import {
 } from '../constant/monthWiseConstant';
 
 const apiKey = 'CG-7oPz64yKkP1A7tpRhxTPTkYc';
-const ids = 'bitcoin,ethereum,tether,ripple,binancecoin';
+//const ids = 'bitcoin';//,ethereum,tether,ripple,binancecoin
 
 const formatDate = (year, month) => {
   const date = new Date(year, month, 1);
@@ -29,7 +29,8 @@ const fetchMonthlyData = async (cryptoId, year, month) => {
   }
 };
 
-export const monthWiseActions = () => async (dispatch) => {
+export const monthWiseActions = (ids) => async (dispatch) => {
+  console.log(ids);
   try {
     dispatch({ type: GET_MONTH_REQUEST });
 
@@ -43,14 +44,14 @@ export const monthWiseActions = () => async (dispatch) => {
       const results = await Promise.all(requests);
 
       results.forEach((data, month) => {
-        const currentPrice = data.market_data ? data.market_data.current_price.usd : 0;
+        const currentPrice = data.market_data ? data.market_data.current_price.inr : 0;
         monthlyData[months[month]] = currentPrice;
       });
 
       return monthlyData;
     };
 
-    const allRequests = ids.split(',').map(async (id) => {
+    const allRequests = ids.map(async (id) => {
       const monthlyData = await fetchAllData(id);
       cryptoData[id] = monthlyData;
     });
@@ -62,7 +63,7 @@ export const monthWiseActions = () => async (dispatch) => {
     console.error('Error in monthWiseActions:', error.message);
     dispatch({
       type: GET_MONTH_FAILURE,
-      payload: error.message, // Ensure error message is dispatched
+      payload: error.message,
     });
   }
 };

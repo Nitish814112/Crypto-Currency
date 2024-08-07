@@ -51,14 +51,14 @@ const Exchange_buttons = ({ coin }) => {
         <div className='flex flex-col'>
           <span style={{ marginLeft: '45%' }}>Enter Value</span>
           <div className='flex gap-3 mt-2'>
-            <label className='portfolio-text' htmlFor="sellCurrency" style={{ color: 'red' }}>Sell:</label>
+            <label className='portfolio-text' htmlFor="sellCurrency" style={{ color: 'black' }}>Sell:</label>
             <select className='portfolio-text' style={{ border: "0.5px solid grey", width:"22%"}} id="sellCurrency" value={sellCurrency} onChange={(e) => setSellCurrency(e.target.value)}>
               {coin.map(c => (
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </select>
             <input className='portfolio-text'
-              style={{ border: "0.5px solid grey", color: "red",width:"40%" }}
+              style={{ border: "0.5px solid grey", color: "black",width:"40%" }}
               type="number"
               value={tempSellAmount}
               onChange={handleSellAmountChange}
