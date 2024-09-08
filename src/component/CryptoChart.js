@@ -271,6 +271,7 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
                   width: "5rem",
                 }),
                 
+                
               }}
             />
           </div>

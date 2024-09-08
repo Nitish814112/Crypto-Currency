@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cryptoDataAction } from "./component/redux/action/cryptoDataAction";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import "./App.css";
 import Coin from "./component/Coin";
 import CryptoChart from "./component/CryptoChart";
@@ -121,6 +122,7 @@ function App() {
       {overallLoading ? (
         <h2 className="spin">
           Loading Your Dashboard... <span id="spinner"></span>
+        
         </h2>
       ) : overallError ? (
         <div className="error-message">
@@ -171,11 +173,11 @@ function App() {
               <div className="graph">
                 <div className="relative inline-block text-left selecting" ref={dropdownRef}>
                   <div
-                  style={{height:"40px"}}
-                    className="border border-gray-300 rounded-lg p-2 cursor-pointer setText "
+                  style={{height:"40px",PaddingTop:'-50px'}}
+                    className="border border-gray-300 bg-white  p-1 cursor-pointer setText"
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
-                    Currency
+                    Currency  <span className="font-thin text-gray-300">|</span> <KeyboardArrowDownIcon />
                   </div>
                   {dropdownOpen && (
                     <div className=" absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 flex flex-col">
@@ -193,7 +195,7 @@ function App() {
                             onChange={() => handleCurrencyChange(currency)}
                             className="mr-2"
                           />
-                          <span>{currency.label}</span>
+                          <span>{currency.label}  </span> 
                         </label>
                       ))}
                     </div>
