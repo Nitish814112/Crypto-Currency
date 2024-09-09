@@ -1,9 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';  // Import act from react
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import App from '../App';
+
+jest.mock('../component/CryptoChart', () => () => <div>Mocked CryptoChart</div>);  // Mocking the chart component
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -20,12 +22,18 @@ describe('App component snapshot', () => {
     store = mockStore(initialState);
   });
 
-  test('renders correctly and matches snapshot', () => {
-    const { asFragment } = render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
+  test('renders correctly and matches snapshot', async () => {
+    let asFragment;
+
+    await act(async () => {
+      // Wrap the render call in act
+      const result = render(
+        <Provider store={store}>
+          <App />
+        </Provider>
+      );
+      asFragment = result.asFragment;
+    });
 
     expect(asFragment()).toMatchSnapshot();
   });
