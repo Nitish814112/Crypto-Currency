@@ -11,6 +11,7 @@ import currencySymbols from "./component/utility/currencySymbols";
 import Nav from "./component/Nav";
 import { monthWiseActions } from "./component/redux/action/monthWiseAction";
 
+// Currency options for selection in the dropdown
 const currencyOptions = [
   { value: "bitcoin", label: "Bitcoin" },
   { value: "ethereum", label: "Ethereum" },
@@ -21,34 +22,31 @@ const currencyOptions = [
 
 function App() {
   const dispatch = useDispatch();
+  
+  // Accessing global state via useSelector
   const GET_CRYPTO = useSelector((state) => state.GET_CRYPTO);
   const GET_MONTH_WISE = useSelector((state) => state.GET_MONTH_WISE);
 
   const { loading: loadingCrypto, coins, error: errorCrypto } = GET_CRYPTO;
-  const {
-    loading: loadingMonthWise,
-    data,
-    error: errorMonthWise,
-  } = GET_MONTH_WISE;
+  const { loading: loadingMonthWise, data, error: errorMonthWise } = GET_MONTH_WISE;
 
+  // Local state management
   const [overallLoading, setOverallLoading] = useState(true);
   const [overallError, setOverallError] = useState(null);
   const [selectedCurrency, setSelectedCurrency] = useState("usd");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState(null);
-  const [selectedCurrencies, setSelectedCurrencies] = useState([
-    currencyOptions[0],
-  ]);
+  const [selectedCurrencies, setSelectedCurrencies] = useState([currencyOptions[0]]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // Fetch cryptocurrency and monthly data when component mounts or selectedCurrencies changes
   useEffect(() => {
-    dispatch(
-      monthWiseActions(selectedCurrencies.map((currency) => currency.value))
-    );
+    dispatch(monthWiseActions(selectedCurrencies.map((currency) => currency.value)));
     dispatch(cryptoDataAction());
   }, [dispatch, selectedCurrencies]);
 
+  // Manage loading and error states
   useEffect(() => {
     if (!loadingCrypto && !loadingMonthWise) {
       setOverallLoading(false);
@@ -62,14 +60,14 @@ function App() {
     }
   }, [loadingCrypto, loadingMonthWise, errorCrypto, errorMonthWise]);
 
+  // Retry fetching data if an error occurs
   const handleRetry = () => {
     setOverallError(null);
     dispatch(cryptoDataAction());
-    dispatch(
-      monthWiseActions(selectedCurrencies.map((currency) => currency.value))
-    );
+    dispatch(monthWiseActions(selectedCurrencies.map((currency) => currency.value)));
   };
 
+  // Handle selection or deselection of currencies
   const handleCurrencyChange = (currency) => {
     setSelectedCurrencies((prevSelected) => {
       if (prevSelected.some((selected) => selected.value === currency.value)) {
@@ -82,6 +80,7 @@ function App() {
     });
   };
 
+  // Search functionality to find a specific coin
   const handleSearch = (e) => {
     e.preventDefault();
     const result = coins.find(
@@ -90,20 +89,15 @@ function App() {
     setSearchResult(result ? result : "No coins found");
   };
 
-  const variousCountriesCurrency = [
-    "usd",
-    "inr",
-    "euro",
-    "aed",
-    "yuan",
-    "ruble",
-    "yen",
-  ];
+  // List of available fiat currencies for selection
+  const variousCountriesCurrency = ["usd", "inr", "euro", "aed", "yuan", "ruble", "yen"];
 
+  // Close modal after clicking outside
   const closeModal = () => {
     setSearchResult(null);
   };
 
+  // Handle clicking outside of dropdown to close it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -118,13 +112,14 @@ function App() {
   }, [dropdownRef]);
 
   return (
-    <>
+   <div className="main-cont">
       {overallLoading ? (
+        // Display loading message while data is being fetched
         <h2 className="spin">
           Loading Your Dashboard... <span id="spinner"></span>
-        
         </h2>
       ) : overallError ? (
+        // Display error message if there was an issue with fetching data
         <div className="error-message">
           <h2>Something went wrong</h2>
           <button onClick={handleRetry}>⟳</button>
@@ -138,6 +133,7 @@ function App() {
           <div className="main">
             <div className="left">
               <div className="search">
+                {/* Currency Selection Dropdown */}
                 <select
                   className="portfolio-text changeText"
                   style={{
@@ -159,6 +155,7 @@ function App() {
                     </option>
                   ))}
                 </select>
+                {/* Coin Search Form */}
                 <form onSubmit={handleSearch}>
                   <input
                     className="shadow_input"
@@ -174,7 +171,7 @@ function App() {
                 <div className="relative inline-block text-left selecting" ref={dropdownRef}>
                   <div
                   style={{height:"40px",PaddingTop:'-50px'}}
-                    className="border border-gray-300 bg-white  p-1 cursor-pointer setText"
+                    className="border border-gray-300 bg-white  p-1 cursor-pointer setText widthprob"
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
                     Currency  <span className="font-thin text-gray-300">|</span> <KeyboardArrowDownIcon />
@@ -201,6 +198,7 @@ function App() {
                     </div>
                   )}
                 </div>
+                {/* Render CryptoChart Component */}
                 <CryptoChart
                   data={data}
                   selectedCurrencies={selectedCurrencies.map(
@@ -218,6 +216,7 @@ function App() {
               </div>
             </div>
             <div className="right">
+              {/* Render DisplayMarketCap Component */}
               <DisplayMarketCap
                 coins={coins}
                 selectedCurrency={selectedCurrency}
@@ -227,6 +226,7 @@ function App() {
           <div className="footer">
             <h1>Made with ❤️ by Nitish ©️ 2024</h1>
           </div>
+          {/* Modal for displaying search result */}
           {searchResult && (
             <div
               className="modal-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
@@ -281,7 +281,7 @@ function App() {
           )}
         </>
       )}
-    </>
+    </div>
   );
 }
 

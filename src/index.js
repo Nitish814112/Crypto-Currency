@@ -10,6 +10,7 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // wrapping App with provider to mange state centrally
   <Provider store={Store}>
   
     <App />

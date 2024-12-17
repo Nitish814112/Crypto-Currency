@@ -13,6 +13,7 @@ import {
   ArcElement,
 } from "chart.js";
 
+// Registering required ChartJS components
 ChartJS.register(
   LineElement,
   BarElement,
@@ -24,12 +25,14 @@ ChartJS.register(
   ArcElement
 );
 
+// Chart types available for selection
 const chartTypes = [
   { value: "line", label: "Line" },
   { value: "bar", label: "Bar" },
   { value: "radar", label: "Radar" },
 ];
 
+// Time range options for the chart
 const timeRanges = [
   { value: "1D", label: "1D" },
   { value: "1W", label: "1W" },
@@ -39,47 +42,51 @@ const timeRanges = [
   { value: "1Y", label: "1Y" },
 ];
 
+// Main CryptoChart component
 const CryptoChart = ({ data, selectedCurrencies }) => {
-  const [selectedChartType, setSelectedChartType] = useState(chartTypes[0]);
-  const [chartData, setChartData] = useState(null);
-  const [selectedTimeRange, setSelectedTimeRange] = useState(
-    timeRanges[4].value
-  ); // Default to 6M
+  const [selectedChartType, setSelectedChartType] = useState(chartTypes[0]); // Default to Line chart
+  const [chartData, setChartData] = useState(null); // State to store chart data
+  const [selectedTimeRange, setSelectedTimeRange] = useState(timeRanges[4].value); // Default to 6M
 
+  // useEffect to update chart data whenever dependencies change
   useEffect(() => {
     if (data && selectedCurrencies.length > 0) {
+      // Generate datasets for selected currencies
       const datasets = selectedCurrencies.map((currency, index) => {
-        const currencyData = data[currency] || {};
+        const currencyData = data[currency] || {}; // Fallback if no data exists for a currency
 
         return {
-          label: currency, // Use currency.value for the label
-          data: generateData(selectedTimeRange, currencyData),
-          borderColor: getRandomColor(),
+          label: currency, // Display the currency name as the label
+          data: generateData(selectedTimeRange, currencyData), // Data based on selected time range
+          borderColor: getRandomColor(), // Assign random color for each dataset
           backgroundColor:
-            selectedChartType.value === "bar"
+            selectedChartType.value === "bar" // Different background for bar chart
               ? getRandomColor()
               : "rgba(75,192,192,0.2)",
-          fill: selectedChartType.value !== "bar", // Only fill for non-bar charts
-          yAxisID: `y-axis-${index}`, // Assign a unique ID for the y-axis
+          fill: selectedChartType.value !== "bar", // Fill area for line and radar charts
+          yAxisID: `y-axis-${index}`, // Unique y-axis ID for each dataset
         };
       });
 
       // Create chart data
       setChartData({
-        labels: generateLabels(selectedTimeRange),
-        datasets,
+        labels: generateLabels(selectedTimeRange), // Generate labels for x-axis
+        datasets, // Attach generated datasets
       });
     }
   }, [data, selectedCurrencies, selectedTimeRange, selectedChartType]);
 
+  // Handle change in chart type selection
   const handleChartTypeChange = (selectedOption) => {
     setSelectedChartType(selectedOption || chartTypes[0]);
   };
 
+  // Handle change in time range
   const handleTimeRangeChange = (timeRange) => {
     setSelectedTimeRange(timeRange);
   };
 
+  // Function to generate a random color for chart elements
   const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -89,6 +96,7 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
     return color;
   };
 
+  // Function to generate labels for the x-axis based on the selected time range
   const generateLabels = (timeRange) => {
     switch (timeRange) {
       case "1D":
@@ -121,6 +129,7 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
     }
   };
 
+  // Function to extract data values for the selected time range
   const generateData = (timeRange, data) => {
     const keys = {
       "1D": ["hour0", "hour6", "hour12", "hour18"],
@@ -147,6 +156,7 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
     return selectedKeys.map((key) => (data[key] !== undefined ? data[key] : 0));
   };
 
+  // Chart configuration options
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -162,7 +172,7 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
             weight: "bold",
             color: "black",
           },
-          color: "black", // This property ensures the color is applied to the legend text
+          color: "black", // Legend text color
         },
       },
       tooltip: {
@@ -174,57 +184,39 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
         },
       },
     },
+    // Scales configuration for dynamic Y-axes
     scales: {
       x: {
         ticks: {
-          color: "black", // Color for x-axis text
-          font: {
-            weight: "bold", // Make x-axis text bold
-          },
+          color: "black",
+          font: { weight: "bold" },
         },
         title: {
           display: true,
-          text: "Time", // X-axis label
+          text: "Time",
           color: "black",
-          font: {
-            weight: "bold",
-            size: 14,
-          },
+          font: { weight: "bold", size: 14 },
         },
       },
       y: selectedCurrencies.map((_, index) => ({
         id: `y-axis-${index}`,
-        position: index === 0 ? "left" : "right", // Position the first y-axis on the left, others on the right
+        position: index === 0 ? "left" : "right",
         ticks: {
-          callback: function (value) {
-            return `${value / 1000}k`; // Format the ticks
-          },
-          color: "black", // Color for y-axis text
-          font: {
-            weight: "bold", // Make y-axis text bold
-          },
-        },
-        afterBuildTicks: (scale) => {
-          scale.ticks.forEach((tick) => {
-            tick.color = "black";
-            tick.font = {
-              weight: "bold",
-            };
-          });
+          callback: (value) => `${value / 1000}k`, // Format Y-axis ticks
+          color: "black",
+          font: { weight: "bold" },
         },
         title: {
           display: true,
-          text: `Currency ${index + 1}`, // Y-axis label
+          text: `Currency ${index + 1}`,
           color: "black",
-          font: {
-            weight: "bold",
-            size: 14,
-          },
+          font: { weight: "bold", size: 14 },
         },
       })),
     },
   };
 
+  // Function to render the chart based on selected chart type
   const renderChart = () => {
     switch (selectedChartType.value) {
       case "bar":
@@ -239,6 +231,7 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
 
   return (
     <div className="w-full">
+      {/* Time range and chart type selection */}
       <div className="flex items-center justify-between gap-4 mb-4 flex-nowrap">
         <div className="flex gap-2 flex-nowrap">
           {timeRanges.map((range) => (
@@ -255,32 +248,19 @@ const CryptoChart = ({ data, selectedCurrencies }) => {
             </button>
           ))}
         </div>
-        <div
-          style={{ color: "black" }}
-          className="flex flex-col items-center w-full"
-        >
-          <div className="flex gap-2 flex-nowrap select-curr justify-center">
-            <Select
-              options={chartTypes}
-              onChange={handleChartTypeChange}
-              value={selectedChartType}
-              className="select-normal portfolio-text select-width"
-              styles={{
-                control: (base) => ({
-                  ...base,
-                  width: "5rem",
-                }),
-                
-                
-              }}
-            />
-          </div>
+        {/* Chart type dropdown */}
+        <div className="flex flex-col items-center w-full">
+          <Select
+            options={chartTypes}
+            onChange={handleChartTypeChange}
+            value={selectedChartType}
+            className="select-normal portfolio-text select-width"
+          />
         </div>
       </div>
-      <div
-        style={{ color: "black" }}
-        className="chart-container h-48 overflow-hidden"
-      >
+
+      {/* Render the chart */}
+      <div className="chart-container h-48 overflow-hidden">
         {chartData && renderChart()}
       </div>
     </div>

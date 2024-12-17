@@ -8,12 +8,17 @@
 } 
 
 body {
-  height: auto;
-    width: 100vw;
   font-family: Arial, sans-serif;
  background-color: whitesmoke;
+
   
   
+}
+.main-cont{
+  width: 100%; /* Prevent content overflow */
+ 
+  
+
 }
 .header-container {
   border-bottom: 2px solid #ccc;
@@ -23,8 +28,7 @@ body {
   align-items: center;
 }
 .exchange-button{
-    /* position: relative; 
-    margin-left: 90%;; */
+  
     height: 45px;
     width: 30%;
     margin-top: 20px;
@@ -508,10 +512,24 @@ background-color:transparent;
   background-color: rgba(255, 255, 255, 0.8); /* Optional: adds a semi-transparent background */
 }
 
+
+@media (max-width:426px){
+    
+  .widthprob {
+    width:132px;
+    margin-left: -16px; 
+  }
+  .css-19q7pao-control{
+    position: static;
+    margin-left: -109px;
+  }
+  }
+
 /* Style the spinner */
 #spinner {
   border: 10px solid rgba(0, 0, 0, 0.1);
-  border-top: 10px solid #3498db; /* Blue color for the spinner */
+  border-top: 10px solid #151616; 
+  border-bottom: 10px solid hsl(0, 68%, 49%);/* Blue color for the spinner */
   border-radius: 50%;
   width: 50px;
   height: 50px;
